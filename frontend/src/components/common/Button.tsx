@@ -2,10 +2,12 @@ import React, { ButtonHTMLAttributes } from 'react';
 import { cn } from '../../utils/classNames';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'ghost' | 'outline';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'ghost' | 'outline';
+  size?: 'sm' | 'md' | 'lg' | 'small' | 'medium' | 'large';
   isLoading?: boolean;
   fullWidth?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,6 +16,8 @@ const Button: React.FC<ButtonProps> = ({
   size = 'md',
   isLoading = false,
   fullWidth = false,
+  leftIcon,
+  rightIcon,
   disabled,
   className,
   ...props
@@ -26,14 +30,23 @@ const Button: React.FC<ButtonProps> = ({
     success: 'bg-success-600 text-white hover:bg-success-700 focus:ring-success-500',
     danger: 'bg-danger-600 text-white hover:bg-danger-700 focus:ring-danger-500',
     warning: 'bg-warning-600 text-white hover:bg-warning-700 focus:ring-warning-500',
+    info: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
     ghost: 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:ring-gray-500',
     outline: 'border-2 border-primary-600 text-primary-600 hover:bg-primary-50 dark:hover:bg-primary-900/20 focus:ring-primary-500',
   };
 
+  // Normalize size values
+  const sizeMap: Record<string, 'sm' | 'md' | 'lg'> = {
+    sm: 'sm', small: 'sm',
+    md: 'md', medium: 'md',
+    lg: 'lg', large: 'lg',
+  };
+  const normalizedSize = sizeMap[size] || 'md';
+
   const sizes = {
-    sm: 'px-3 py-1.5 text-sm',
-    md: 'px-4 py-2 text-base',
-    lg: 'px-6 py-3 text-lg',
+    sm: 'px-3 py-1.5 text-sm gap-1.5',
+    md: 'px-4 py-2 text-base gap-2',
+    lg: 'px-6 py-3 text-lg gap-2',
   };
 
   return (
@@ -41,7 +54,7 @@ const Button: React.FC<ButtonProps> = ({
       className={cn(
         baseStyles,
         variants[variant],
-        sizes[size],
+        sizes[normalizedSize],
         fullWidth && 'w-full',
         className
       )}
@@ -73,7 +86,11 @@ const Button: React.FC<ButtonProps> = ({
           Loading...
         </>
       ) : (
-        children
+        <>
+          {leftIcon && <span className="flex-shrink-0">{leftIcon}</span>}
+          {children}
+          {rightIcon && <span className="flex-shrink-0">{rightIcon}</span>}
+        </>
       )}
     </button>
   );

@@ -7,6 +7,8 @@ export interface Goal {
   target_amount: number;
   current_amount: number;
   deadline: string | null;
+  target_date?: string | null; // Alias for deadline
+  description?: string | null; // Additional field
   status: GoalStatus;
   created_at: string;
   updated_at: string;
@@ -18,6 +20,8 @@ export interface CreateGoalData {
   target_amount: number;
   current_amount?: number;
   deadline?: string;
+  target_date?: string; // Alias for deadline
+  description?: string; // Additional field
   status?: GoalStatus;
 }
 
@@ -26,5 +30,10 @@ export interface UpdateGoalData {
   target_amount?: number;
   current_amount?: number;
   deadline?: string;
+  target_date?: string; // Alias for deadline
+  description?: string; // Additional field
   status?: GoalStatus;
 }
+
+// Type aliases for form compatibility
+export type CreateGoalRequest = CreateGoalData;

@@ -46,6 +46,7 @@ export const useAccounts = () => {
 
   return {
     accounts: query.data,
+    data: query.data, // Alias for easier destructuring
     isLoading: query.isLoading,
     isError: query.isError,
     error: query.error,

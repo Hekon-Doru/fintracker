@@ -42,6 +42,9 @@ export interface UpdateTransactionData {
   tags?: string[];
 }
 
+// Type aliases for form compatibility
+export type CreateTransactionRequest = CreateTransactionData;
+
 export interface TransactionFilters {
   account_id?: number;
   category_id?: number;

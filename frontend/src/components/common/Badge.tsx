@@ -4,7 +4,7 @@ import { cn } from '../../utils/classNames';
 export interface BadgeProps {
   children: React.ReactNode;
   variant?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'info';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'small' | 'medium' | 'large';
   className?: string;
 }
 
@@ -23,6 +23,14 @@ const Badge: React.FC<BadgeProps> = ({
     info: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300',
   };
 
+  // Normalize size values
+  const sizeMap: Record<string, 'sm' | 'md' | 'lg'> = {
+    sm: 'sm', small: 'sm',
+    md: 'md', medium: 'md',
+    lg: 'lg', large: 'lg',
+  };
+  const normalizedSize = sizeMap[size] || 'md';
+
   const sizes = {
     sm: 'px-2 py-0.5 text-xs',
     md: 'px-2.5 py-0.5 text-sm',
@@ -34,7 +42,7 @@ const Badge: React.FC<BadgeProps> = ({
       className={cn(
         'inline-flex items-center font-medium rounded-full',
         variants[variant],
-        sizes[size],
+        sizes[normalizedSize],
         className
       )}
     >

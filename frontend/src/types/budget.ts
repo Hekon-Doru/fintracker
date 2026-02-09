@@ -7,6 +7,7 @@ export interface Budget {
   user_id: number;
   category_id: number | null;
   amount: number;
+  spent: number; // Add spent field directly
   period: BudgetPeriod;
   start_date: string;
   end_date: string | null;
@@ -38,3 +39,6 @@ export interface UpdateBudgetData {
   end_date?: string;
   is_active?: boolean;
 }
+
+// Type aliases for form compatibility
+export type CreateBudgetRequest = CreateBudgetData;

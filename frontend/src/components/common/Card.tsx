@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { cn } from '../../utils/classNames';
 
 export interface CardProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: 'default' | 'bordered' | 'elevated';
+  variant?: 'default' | 'bordered' | 'outlined' | 'elevated';
   padding?: 'none' | 'sm' | 'md' | 'lg';
 }
 
@@ -16,6 +16,7 @@ const Card: React.FC<CardProps> = ({
   const variants = {
     default: 'bg-white dark:bg-gray-800',
     bordered: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
+    outlined: 'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
     elevated: 'bg-white dark:bg-gray-800 shadow-lg',
   };
 

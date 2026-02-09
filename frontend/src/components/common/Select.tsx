@@ -5,11 +5,12 @@ export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
   error?: string;
   helperText?: string;
-  options: Array<{ value: string | number; label: string }>;
+  options?: Array<{ value: string | number; label: string }>;
+  children?: React.ReactNode;
 }
 
 const Select = forwardRef<HTMLSelectElement, SelectProps>(
-  ({ label, error, helperText, options, className, id, ...props }, ref) => {
+  ({ label, error, helperText, options, children, className, id, ...props }, ref) => {
     const selectId = id || label?.toLowerCase().replace(/\s+/g, '-');
 
     return (
@@ -36,7 +37,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           )}
           {...props}
         >
-          {options.map((option) => (
+          {children || options?.map((option) => (
             <option key={option.value} value={option.value}>
               {option.label}
             </option>

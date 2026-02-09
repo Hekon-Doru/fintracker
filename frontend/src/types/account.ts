@@ -27,3 +27,6 @@ export interface UpdateAccountData {
   currency?: string;
   is_active?: boolean;
 }
+
+// Type aliases for form compatibility
+export type CreateAccountRequest = CreateAccountData;
